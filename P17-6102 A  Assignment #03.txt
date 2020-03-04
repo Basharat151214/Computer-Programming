@@ -1,0 +1,344 @@
+								Assignment #03
+Name: Basharat Hussain
+Roll no: P17-6102
+Section: A
+
+
+							Question #01
+#include<iostream>
+using namespace std;
+
+class rectangle{
+	private:
+		float len=1;
+		float wid=1;
+	public:
+			
+		float perimeter(float len,float wid){
+			return 2*(len+wid);
+		}
+		float area(float len,float wid){
+			return len*wid;
+		}
+		void set(float l, float w){
+			if(len>0.0 && len<20.0)
+			len= l;
+			if(wid>0.0 && wid<20.0)
+			wid= w;
+		}
+		float getLength(){
+			return len;
+		}
+		float getWidth(){
+			return wid;
+		}
+};
+
+int main(){
+	rectangle obj;
+	cout<<"Area:    "<<obj.area(8.0,7.0)<<endl;
+	cout<<"perimeter:    "<<obj.perimeter(8.0,7.0);
+}
+
+
+
+
+
+
+
+
+
+
+					Question #02
+
+#include<iostream>
+using namespace std;
+
+class time {
+		private:
+    		int hours;
+    		int minutes;
+    		int seconds;
+		public:
+			
+    		time(){
+    			
+    			hours= 0;
+				minutes= 0; 
+				seconds= 0;
+			}  
+
+    		time(int h, int m, int s) {
+			 
+	  			hours= h;
+				minutes= m;
+				seconds= s;
+			}
+
+			int getHours(){
+				return hours;
+			}
+			int getMinutes(){
+				return minutes;
+			}
+			int getSeconds() {
+				return seconds;
+			}
+		void display()
+		{
+			
+        	cout<<hours<<":"<<minutes<<":"<<seconds<<endl;
+    	}
+    	
+		time add(time t1, time t2) {
+			int hoursAdd = t1.getHours() + t2.getHours();
+					if (hoursAdd > 23) {
+							hoursAdd -= 24;
+					}
+			int minutesAdd = t1.getMinutes() + t2.getMinutes();
+					if (minutesAdd > 59) {
+							minutesAdd -= 60;
+							hoursAdd += 1;
+						}
+			int secondsAdd = t1.getSeconds() + t2.getSeconds();
+					if (secondsAdd > 59) {
+						secondsAdd -= 60;
+						minutesAdd += 1;
+						}
+
+			time t3(hoursAdd, minutesAdd, secondsAdd);
+		}
+};
+
+
+
+int main() {
+	time t1(05, 30, 10);
+	time t2(07, 20, 10);
+	time t3;
+	t3 = t3.add(t1, t2);
+
+	cout<<"Time 1 is:               	 ";
+	t1.display();
+	cout<<"Time 2 is:               	 ";
+	t2.display();
+	cout<<"Addition of two times is:	 ";
+	t3.display();
+	return 0;
+	}
+
+							
+
+
+
+
+
+
+
+						Question #03
+
+#include <iostream>
+using namespace std;
+class tollbooth{
+private:
+    int ncars;
+    double money;
+public:
+    tollbooth(){
+    	ncars=0;
+    	money=0.0;
+    }
+    void payCar(){
+    	ncars++;
+    	money+=0.50;
+    }
+    void nopayCar(){
+    	ncars++;
+    }
+    void menu(){
+        int a;
+
+    cout<<"Enter 1 for Enter paying Car"<<endl;
+    cout<<"Enter 2 for Enter no Paying Car"<<endl;
+    cout<<endl;
+    cin>>a;
+    if(a==1){
+        payCar();
+    }
+    else if(a==2){
+        nopayCar();
+    }
+    else if(a>2||a<1)
+       cout<<"Please enter 1 or 2"<<endl;
+
+    }
+    void display(){
+    cout<<"Number of Cars Passed: "<<ncars<<endl;
+    cout<<"Amount of Money Collected: $"<<money<<endl;
+    }
+
+};
+int main()
+{
+    tollbooth t1;
+while(1){
+    t1.menu();
+    t1.display();
+}
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+						Question #04
+#include<iostream>
+using namespace std;
+
+class math{
+	private:
+		int a;
+		int b;
+		int c;
+	public:
+		int LCM(int a,int b, int c)
+{
+        long maximum;
+		long leastcom;
+		long count;
+		long flag=0;
+        if(a>=b&&a>=c)
+                maximum=a;
+        else if(b>=a&&b>=c)
+                maximum=b;
+        else if(c>=a&&c>=b)
+                maximum=c;
+        for(count=1;flag==0;count++)
+        {
+                leastcom=maximum*count;
+                if(leastcom%a==0 && leastcom%b==0 && leastcom%c==0)
+                {
+                        flag=1;
+                }
+        }
+        return leastcom;
+}
+int HCF(int a, int b, int c)
+{
+        int greatestCommFac=1;
+		int flag=0;
+		int count;
+        for(count=1; flag==0;count++)
+        {
+                if(a%count==0 && b%count==0 && c%count==0)
+                        greatestCommFac=count;
+                if(count>a && count>b && count>c)
+                {
+                        flag=1;
+                }
+        }
+        return greatestCommFac;
+}
+math(){
+   a=0;
+   b=0;
+   c=0;
+   }
+   int prime(int n){
+       int d=0,num=2;
+       int prime=0;
+
+while(num<50){
+    int coun=0;
+
+    for(int a=1;a<=num;a++)
+    {
+        if(num%a==0)
+        {
+        coun++;
+        }
+    }
+    if(coun==2)
+    {
+        d++;
+        if(d==n)
+        {
+            prime=num;
+        }
+    }
+
+num++;
+}
+return prime;
+  }
+
+};
+
+
+int main(){
+	math obj;
+	cout<<"LCM of three numbers:"<<obj.LCM(2,3,4)<<endl;
+	cout<<"HCF of three numbers:"<<obj.HCF(23,32,44)<<endl;
+	cout<<"the nth prime number is:"<<obj.prime(6);
+}
+
+
+								Question #06
+
+
+
+1)	What is the main purpose of using oop ?
+
+
+Object Oriented Programming The development of complicated computer applications has seen the need for data abstraction with the software engineering field. The main advantages of data abstraction are: 
+1.	It reduces the conceptual load for the programmer. 
+2.	2. It provides a method of fault containment by preventing the programmer from using code in an inappropriate way. 
+3.	3. It increases the independence among program components. Programmers can work on individual parts of the code without affecting the interface between components. 
+
+
+
+
+2)	Can we access the private data member of a class directly in main function  c++?if yes how?
+
+
+Is it possible to access private members outside a class without friend?
+Yes, it is possible using pointers. See the following program as an example.
+Note that the above way of accessing private data members is not at all a recommended way of accessing members and should never be used. Also, it doesn’t mean that the encapsulation doesn’t work in C++. The idea of making private members is to avoid accidental changes. The above change to data is not accidental. It’s an intentionally written code to fool the compiler
+
+3)	How can we count the number of objects created of a class ?
+Start with the number zero, and each time an object is created, add one.
+That's the logic.
+If you mean something like creating a class, and counting how many times an object of that class is created, put the functionality to do the counting inside the constructor and make the counter shared across all instances (for example, by making it static).
+
+4)	Why we cant have more than one distructor ?
+A destructor doesn't have parameters, so there can be only one. However you can have more than 1 constructor since you can overload the constructor which is not possible with Destructors.
+
+
+
+
+5)	Main difference between class and struct ?   
+
+Data Type :   
+                 Classes are Reference type and therefore stored on the heapwhile
+Structs are Value type and therefore stored on stack. Behaves like simple data types
+Inheritance:  
+            classes are Support Inheritance while
+Structs are  not support inheritance 
+Default Values     
+   			classes are Default value of a class type is null
+Sstructs are Default value is the value produced by zeroing out the fields of the struct
+Field Initialization:
+classes Permits initialization of instance fields while Structs Do not permit initialization of instance fields
+Constructors:
+Classes Permits declaration of parameter less constructorsWhile Structs are Do not support parameter less constructors
+
+Destructors:    
+   Classes Supportedwhile Structs are  Not.
+
+

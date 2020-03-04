@@ -1,0 +1,161 @@
+/*							ASSIGNMENT # 03 
+NAME: BASHARAT HUSSAIN
+ROLL NO: P17-6102
+SECTION: B
+Group Members:  1) 17P-6141
+		2) 17P-6102 
+		3) 17P-6047
+Group:  3.
+Section B.
+*/
+
+
+#include <iostream>
+using namespace std;
+static int no_Vectors;
+static int no_Rows;
+
+void echelon(float **Matrix,int Row,int Column);
+void reducedEchelon(float **b,int Row,int Column);
+void print(float **Matrix, int Rows, int Columns);
+int Ranks(float **Matrix);
+	
+	
+int main() {
+	
+cout<<"Enter The number of vectors: "<<endl;
+cin>>no_Vectors;
+cout<<"Enter The Number of elements: "<<endl;
+cin>>no_Rows;
+
+float **p=new float*[no_Vectors];
+    for(int i=0;i<no_Vectors;i++){
+            p[i]=new float[no_Rows];
+    }
+    
+    
+for(int i=0;i<no_Vectors;i++){
+for(int j=0;j<no_Rows;j++){
+    cout<<"entries of Vector"<<i+1<<endl;
+    cin>>p[i][j];
+}
+}
+
+cout<<"			Augmented Matrix:"<<endl;
+	print(p,no_Vectors,no_Rows);
+
+	echelon(p,no_Vectors,no_Rows);
+
+	cout<<endl<<"			Echelon form: "<<endl;
+	print(p,no_Vectors,no_Rows);
+
+    reducedEchelon(p,no_Vectors,no_Rows);
+
+	cout<<endl<<"			Reduced Echelon form: "<<endl;
+    print(p,no_Vectors,no_Rows);
+
+    if(no_Vectors==Ranks(p)){
+        cout<<"			Trivial: Vectors are Linearly Independent "<<endl;
+    }
+    if(no_Vectors!=Ranks(p)){
+        cout<<"			Non Trivial: Vectors are Linearly Dependent "<<endl;
+    }
+	return 0;
+}
+
+void echelon(float **Matrix,int Row,int Column)
+{
+for(int i=0; i<Row; i++)
+	{
+		int index=0;
+		while(Matrix[i][index]==0)
+		{
+			index+=1;
+		}
+		if(Matrix[i][index]!=0)
+		{
+			float Divisor=Matrix[i][index];
+			for(int itr=index; itr<Column; itr++)
+			{
+				Matrix[i][itr]=Matrix[i][itr]/Divisor;
+			}
+		}
+		if(i!=Row-1)
+		{
+			for(int itr=i+1; itr<Row; itr++)
+			{
+				float Multiple=Matrix[itr][index]/Matrix[i][index];
+				for(int itr2=index; itr2<Column; itr2++)
+				{
+					Matrix[itr][itr2]=Matrix[itr][itr2]-(Multiple*Matrix[i][itr2]);
+				}
+			}
+		}
+	}
+}
+
+void reducedEchelon(float **b,int Row,int Column)
+{
+   float temp;
+        for(int j=Column-1;j>=0;j--)
+        {
+        	for(int k=j-1;k>=0;k--)
+            {
+                temp=b[k][j]/b[j][j];
+                for(int l=Column;l>=j;l--)
+                {
+                    b[k][l]-=temp*b[j][l];
+                }
+            }
+        }
+        
+        float c[Column];
+        for(int j=0;j<Column;j++)
+            c[j]=0;
+        for(int j=0;j<Column;j++)
+        {
+            for(int k=0;k<Column+1;k++)
+            {
+                if(c[j]==0 && k!=Column)
+                    c[j]=b[j][k];
+                if(c[j]!=0)
+                    b[j][k]/=c[j];
+            }
+        }
+}
+void print(float **Matrix, int Rows, int Columns){
+	for(int i=0; i<no_Vectors; i++)
+	{
+		for(int j=0; j<no_Rows; j++)
+		{
+			cout<<"		"<<Matrix[i][j];
+			if(Matrix[i][j]<10 && Matrix[i][j]>-10)
+			{
+				cout<<"   ";
+			}
+			else
+			{
+				cout<<"  ";
+			}
+		}
+		cout<<endl;
+	}
+	cout<<endl;
+}
+
+int Ranks(float **Matrix){
+int no=0;
+int j=0;
+for(int i=0;i<no_Vectors;i++)
+{
+
+    if(Matrix[i][j]==1){
+        no++;
+    }
+    j++;
+
+}
+return no;
+}
+		
+		
